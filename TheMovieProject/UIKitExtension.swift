@@ -19,7 +19,7 @@ extension UIImage {
                 let image = UIImage(data: data.result.value!)
                 response(image!)
             } else {
-                response(#imageLiteral(resourceName: "poster.jpg"))
+                response(#imageLiteral(resourceName: "placeholder"))
             }
         }
     }

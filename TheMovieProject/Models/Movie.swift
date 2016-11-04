@@ -22,7 +22,7 @@ struct MovieConstants {
 class Movie {
     
     let backdropPath: String
-    let genreIds: Array<AnyObject>
+    let genreIds: Array<Int>
     let objectId: Int
     let overview: String
     let popularity: Float
@@ -30,7 +30,7 @@ class Movie {
     let releaseDate: String
     let title: String
     
-    init(backdropPath: String, genreIds: Array<AnyObject>, objectId: Int, overview: String, popularity: Float, posterPath: String, releaseDate: String, title: String) {
+    init(backdropPath: String, genreIds: Array<Int>, objectId: Int, overview: String, popularity: Float, posterPath: String, releaseDate: String, title: String) {
         self.backdropPath = backdropPath
         self.genreIds = genreIds
         self.objectId = objectId
@@ -43,7 +43,7 @@ class Movie {
     
     convenience init?(json: [String: AnyObject]) {
         guard let backdropPath = json[MovieConstants.backdropPath] as? String,
-            let genreIds = json[MovieConstants.genreIds] as? [AnyObject],
+            let genreIds = json[MovieConstants.genreIds] as? [Int],
             let objectId = json[MovieConstants.objectId] as? Int,
             let overview = json[MovieConstants.overview] as? String,
             let popularity = json[MovieConstants.popularity] as? Float,
@@ -61,4 +61,14 @@ class Movie {
                   title: title)
     }
     
+    func genres() -> String {
+        var genresString = ""
+        let genres = AppSettings.genres()
+        for genreId in genreIds {
+            if let genre = genres[genreId] {
+                genresString += "#" + genre.name + " "
+            }
+        }
+        return genresString
+    }
 }

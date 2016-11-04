@@ -9,7 +9,7 @@
 import Foundation
 import Alamofire
 
-typealias GENRE_SUCCESS = ((_ data: [Genre]) -> Void)
+typealias GENRE_SUCCESS = ((_ data: [Int:Genre]) -> Void)
 typealias GENRE_FAILURE = ((_ data: Error) -> Void)
 
 struct GenreAPI {
@@ -24,10 +24,10 @@ struct GenreAPI {
                 } else {
                     if let resp = response.result.value as? [String:AnyObject],
                         let data = resp["genres"] as? [[String:AnyObject]] {
-                        var genres = [Genre]()
+                        var genres = [Int:Genre]()
                         for values in data {
                             if let genre = Genre(json: values) {
-                                genres.append(genre)
+                                genres[genre.objectId] = genre
                             }
                         }
                         success(genres)

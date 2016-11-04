@@ -1,19 +1,19 @@
 //
-//  MovieCell.swift
+//  MovieDetailsCell.swift
 //  TheMovieProject
 //
-//  Created by Fabio Barboza on 03/11/16.
+//  Created by Fabio Barboza on 04/11/16.
 //  Copyright © 2016 Kobe. All rights reserved.
 //
 
 import UIKit
 
-class MovieCell: UITableViewCell {
+class MovieDetailsCell: UITableViewCell {
 
     @IBOutlet weak var poster: UIImageView!
-    @IBOutlet weak var title: UILabel!
-    @IBOutlet weak var genre: UILabel!
+    @IBOutlet weak var genres: UILabel!
     @IBOutlet weak var releaseDate: UILabel!
+    @IBOutlet weak var btnWebsite: UIButton!
     @IBOutlet weak var popularity: UILabel!
-
+    
 }

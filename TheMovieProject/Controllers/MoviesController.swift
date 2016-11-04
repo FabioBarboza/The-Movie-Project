@@ -13,6 +13,7 @@ class MoviesController: UIViewController, UITableViewDelegate, UITableViewDataSo
     let navTitle = "Upcoming"
     let estimatedRowHeight = 322.0
     let movieCellId = "MovieCell"
+    let movieDetailSegue = "MovieDetailSegue"
     
     var movies = [Movie]()
     
@@ -22,6 +23,7 @@ class MoviesController: UIViewController, UITableViewDelegate, UITableViewDataSo
             tableView.dataSource = self
             tableView.rowHeight = UITableViewAutomaticDimension
             tableView.estimatedRowHeight = CGFloat(estimatedRowHeight)
+            self.tableView.tableFooterView = UIView(frame: CGRect.zero)
         }
     }
     
@@ -31,7 +33,13 @@ class MoviesController: UIViewController, UITableViewDelegate, UITableViewDataSo
         super.viewDidLoad()
         self.title = navTitle
         
-        MovieAPI.request(endpoint: .upcoming(page: 1, language: "en-US"), success: { data in
+        upgomingMovies()
+    }
+    
+    //MARK: - Data
+    
+    func upgomingMovies() {
+        MovieAPI.request(endpoint: .upcoming(page: 1, language: AppSettings.language), success: { data in
             print(data)
             self.movies.removeAll()
             self.movies.append(contentsOf: data)
@@ -40,14 +48,6 @@ class MoviesController: UIViewController, UITableViewDelegate, UITableViewDataSo
             }, failure: { error in
                 print(error)
         })
-        
-        GenreAPI.request(endpoint: .movieList(language: "en-US"), success: { (data) in
-            print(data)
-            
-        }) { (error) in
-            print(error)
-        }
-        
     }
     
     //MARK: - Tableview
@@ -56,7 +56,10 @@ class MoviesController: UIViewController, UITableViewDelegate, UITableViewDataSo
         if let cell = tableView.dequeueReusableCell(withIdentifier: movieCellId, for: indexPath) as? MovieCell {
             
             let movie = movies[indexPath.row]
-            cell.title.text = movie.title
+            cell.title.text = movie.title.uppercased()
+            cell.releaseDate.text = movie.releaseDate
+            cell.popularity.text = String(format:"%0.1f", movie.popularity)
+            cell.genre.text = movie.genres()
             
             UIImage.image(from: movie.posterPath, response: { (image) in
                 DispatchQueue.main.async {
@@ -66,7 +69,7 @@ class MoviesController: UIViewController, UITableViewDelegate, UITableViewDataSo
             
             return cell
         } else {
-            return UITableViewCell.init()
+            return UITableViewCell()
         }
     }
     
@@ -76,6 +79,17 @@ class MoviesController: UIViewController, UITableViewDelegate, UITableViewDataSo
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        self.performSegue(withIdentifier: movieDetailSegue, sender: indexPath)
+    }
+    
+    //MARK: - Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == movieDetailSegue {
+            let movieDetail = segue.destination as? MovieDetailController
+            let indexPath = sender as? IndexPath
+            movieDetail?.movie = movies[(indexPath?.row)!]
+        }
     }
     
 }
