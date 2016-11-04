@@ -22,6 +22,20 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="322" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="AQI-4Z-0IC">
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <view key="tableFooterView" contentMode="scaleToFill" id="3Zz-1f-NOH">
+                                    <rect key="frame" x="0.0" y="414" width="375" height="64"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="g6g-Ab-tEx"/>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="g6g-Ab-tEx" secondAttribute="bottom" constant="22" id="9F7-SA-z5B"/>
+                                        <constraint firstItem="g6g-Ab-tEx" firstAttribute="centerY" secondItem="3Zz-1f-NOH" secondAttribute="centerY" id="NPl-7y-Ncc"/>
+                                        <constraint firstItem="g6g-Ab-tEx" firstAttribute="centerX" secondItem="3Zz-1f-NOH" secondAttribute="centerX" id="gtg-vW-tHX"/>
+                                        <constraint firstItem="g6g-Ab-tEx" firstAttribute="top" secondItem="3Zz-1f-NOH" secondAttribute="top" constant="22" id="yLy-Ky-ykC"/>
+                                    </constraints>
+                                </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MovieCell" rowHeight="322" id="X0o-Ip-SI1" customClass="MovieCell" customModule="TheMovieProject" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="92" width="375" height="322"/>
@@ -111,6 +125,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="Mou-5a-XaA"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="g6g-Ab-tEx" id="oP9-ZX-WqV"/>
                         <outlet property="tableView" destination="AQI-4Z-0IC" id="TNz-bd-iJh"/>
                         <segue destination="oyD-nf-mRV" kind="show" identifier="MovieDetailSegue" id="WTN-Fp-iim"/>
                     </connections>

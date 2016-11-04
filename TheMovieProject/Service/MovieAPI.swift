@@ -29,6 +29,8 @@ struct MovieAPI {
                         for values in data {
                             if let movie = Movie(json: values) {
                                 movies.append(movie)
+                            } else {
+                                print(values)
                             }
                         }
                         success(movies)

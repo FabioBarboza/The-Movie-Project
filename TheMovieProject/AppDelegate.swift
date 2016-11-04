@@ -17,7 +17,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         GenreAPI.request(endpoint: .movieList(language: AppSettings.language), success: { (data) in
-            print(data)
             AppSettings.store(genres: data)
             
         }) { (error) in

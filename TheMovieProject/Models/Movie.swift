@@ -16,19 +16,19 @@ struct MovieConstants {
     static let popularity = "popularity"
     static let posterPath = "poster_path"
     static let releaseDate = "release_date"
-    static let title = "title"
+    static let title = "original_title"
 }
 
 class Movie {
     
-    let backdropPath: String
-    let genreIds: Array<Int>
-    let objectId: Int
-    let overview: String
-    let popularity: Float
-    let posterPath: String
-    let releaseDate: String
-    let title: String
+    let backdropPath: String?
+    let genreIds: Array<Int>?
+    let objectId: Int?
+    let overview: String?
+    let popularity: Float?
+    let posterPath: String?
+    let releaseDate: String?
+    let title: String?
     
     init(backdropPath: String, genreIds: Array<Int>, objectId: Int, overview: String, popularity: Float, posterPath: String, releaseDate: String, title: String) {
         self.backdropPath = backdropPath
@@ -42,32 +42,37 @@ class Movie {
     }
     
     convenience init?(json: [String: AnyObject]) {
-        guard let backdropPath = json[MovieConstants.backdropPath] as? String,
-            let genreIds = json[MovieConstants.genreIds] as? [Int],
-            let objectId = json[MovieConstants.objectId] as? Int,
-            let overview = json[MovieConstants.overview] as? String,
-            let popularity = json[MovieConstants.popularity] as? Float,
-            let posterPath = json[MovieConstants.posterPath] as? String,
-            let releaseDate = json[MovieConstants.releaseDate] as? String,
+        let backdropPath = json[MovieConstants.backdropPath] as? String
+            let genreIds = json[MovieConstants.genreIds] as? [Int]
+            let objectId = json[MovieConstants.objectId] as? Int
+            let overview = json[MovieConstants.overview] as? String
+            let popularity = json[MovieConstants.popularity] as? Float
+            let posterPath = json[MovieConstants.posterPath] as? String
+            let releaseDate = json[MovieConstants.releaseDate] as? String
             let title = json[MovieConstants.title] as? String
-            else { return nil }
-        self.init(backdropPath: backdropPath,
-                  genreIds: genreIds,
-                  objectId: objectId,
-                  overview: overview,
-                  popularity: popularity,
-                  posterPath: posterPath,
-                  releaseDate: releaseDate,
-                  title: title)
+        
+        self.init(backdropPath: backdropPath ?? "",
+                  genreIds: genreIds ?? [Int](),
+                  objectId: objectId ?? 0,
+                  overview: overview ?? "",
+                  popularity: popularity ?? 0,
+                  posterPath: posterPath ?? "",
+                  releaseDate: releaseDate ?? "",
+                  title: title ?? "")
     }
     
     func genres() -> String {
         var genresString = ""
         let genres = AppSettings.genres()
-        for genreId in genreIds {
-            if let genre = genres[genreId] {
-                genresString += "#" + genre.name + " "
+        if let genlist = genreIds {
+            for genreId in genlist {
+                if let genre = genres[genreId] {
+                    genresString += "#" + genre.name + " "
+                }
             }
+        }
+        if genresString == "" {
+            return "#Nogenres"
         }
         return genresString
     }

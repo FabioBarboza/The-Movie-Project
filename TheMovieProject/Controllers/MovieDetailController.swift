@@ -16,11 +16,11 @@ class MovieDetailController: UIViewController, UITableViewDelegate, UITableViewD
     
     @IBOutlet weak var tableView: UITableView! {
         didSet {
-            self.tableView.delegate = self
-            self.tableView.dataSource = self
-            self.tableView.estimatedRowHeight = 44.0
-            self.tableView.rowHeight = UITableViewAutomaticDimension
-            self.tableView.tableFooterView = UIView(frame: CGRect.zero)
+            tableView.delegate = self
+            tableView.dataSource = self
+            tableView.estimatedRowHeight = 44.0
+            tableView.rowHeight = UITableViewAutomaticDimension
+            tableView.tableFooterView = UIView(frame: CGRect.zero)
         }
     }
     @IBOutlet weak var movieBackdrop: UIImageView!
@@ -40,16 +40,13 @@ class MovieDetailController: UIViewController, UITableViewDelegate, UITableViewD
     //MARK: - Data
     
     func movieDetails() {
-        if movie != nil {
-            self.movieTitle.text = self.movie?.title.uppercased()
-            
-            UIImage.image(from: movie.backdropPath, response: { (image) in
-                DispatchQueue.main.async {
-                    self.movieBackdrop.image = image
-                }
-            })
-            
-        }
+        self.movieTitle.text = movie.title?.uppercased()
+        
+        UIImage.image(from: movie.backdropPath!, response: { (image) in
+            DispatchQueue.main.async {
+                self.movieBackdrop.image = image
+            }
+        })
     }
     
     //MARK: - Tableview
@@ -59,10 +56,10 @@ class MovieDetailController: UIViewController, UITableViewDelegate, UITableViewD
             if let detailCell = tableView.dequeueReusableCell(withIdentifier: movieDetailsCell, for: indexPath) as? MovieDetailsCell {
                 
                 detailCell.releaseDate.text = movie.releaseDate
-                detailCell.popularity.text = String(format:"%0.1f", movie.popularity)
+                detailCell.popularity.text = String(format:"%0.1f", movie.popularity!)
                 detailCell.genres.text = movie.genres()
                 
-                UIImage.image(from: movie.posterPath, response: { (image) in
+                UIImage.image(from: movie.posterPath!, response: { (image) in
                     DispatchQueue.main.async {
                         detailCell.poster.image = image
                     }
