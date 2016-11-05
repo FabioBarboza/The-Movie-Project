@@ -56,3 +56,9 @@ Alamofire.request("https://httpbin.org/get").responseJSON { response in
     }
 }
 ```
+
+## Screens
+
+![Screen1](http://imgur.com/a/Y8mV3)
+![Screen2](http://imgur.com/a/CAUdU)
+![Screen1](http://imgur.com/a/GeGGW)
