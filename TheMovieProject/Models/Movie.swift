@@ -23,12 +23,12 @@ class Movie {
     
     let backdropPath: String?
     let genreIds: Array<Int>?
-    let objectId: Int?
+    let objectId: Int
     let overview: String?
     let popularity: Float?
     let posterPath: String?
     let releaseDate: String?
-    let title: String?
+    let title: String
     
     init(backdropPath: String, genreIds: Array<Int>, objectId: Int, overview: String, popularity: Float, posterPath: String, releaseDate: String, title: String) {
         self.backdropPath = backdropPath

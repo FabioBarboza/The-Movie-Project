@@ -40,7 +40,7 @@ class MovieDetailController: UIViewController, UITableViewDelegate, UITableViewD
     //MARK: - Data
     
     func movieDetails() {
-        self.movieTitle.text = movie.title?.uppercased()
+        self.movieTitle.text = movie.title.uppercased()
         
         UIImage.image(from: movie.backdropPath!, response: { (image) in
             DispatchQueue.main.async {

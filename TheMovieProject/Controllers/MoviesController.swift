@@ -2,46 +2,48 @@
 //  MoviesController.swift
 //  TheMovieProject
 //
-//  Created by Fabio Barboza on 03/11/16.
+//  Created by Fabio Barboza on 05/11/16.
 //  Copyright © 2016 Kobe. All rights reserved.
 //
 
 import UIKit
 
-class MoviesController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class MoviesController: UITableViewController, UISearchResultsUpdating {
     
+    let searchController = UISearchController(searchResultsController: nil)
     let navTitle = "Upcoming"
     let estimatedRowHeight = 322.0
     let movieCellId = "MovieCell"
+    let filteredCellId = "FilteredCell"
+    let blankCellId = "BlankCell"
     let movieDetailSegue = "MovieDetailSegue"
     var movies = [Movie]()
+    var filteredMovies = [Movie]()
     var nextPage = 2
     var isLoading = false
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var tableView: UITableView! {
-        didSet {
-            tableView.delegate = self
-            tableView.dataSource = self
-            tableView.rowHeight = UITableViewAutomaticDimension
-            tableView.estimatedRowHeight = CGFloat(estimatedRowHeight)
-            
-            let refresh = UIRefreshControl()
-            tableView.addSubview(refresh)
-            tableView.refreshControl = refresh
-            refresh.addTarget(self, action: #selector(refreshData), for: UIControlEvents.valueChanged)
-        }
-    }
-    
-    //MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = CGFloat(estimatedRowHeight)
+        
         self.title = navTitle
+        setSearchBar()
+        setRefreshControl()
         refreshData()
     }
     
     //MARK: - Data
+    
+    func setRefreshControl() {
+        let refresh = UIRefreshControl()
+        tableView.addSubview(refresh)
+        tableView.refreshControl = refresh
+        refresh.addTarget(self, action: #selector(refreshData), for: UIControlEvents.valueChanged)
+    }
     
     func refreshData() {
         self.movies = [Movie]()
@@ -78,8 +80,6 @@ class MoviesController: UIViewController, UITableViewDelegate, UITableViewDataSo
             self.tableView.refreshControl?.endRefreshing()
             self.isLoading = false
             
-            print(self.movies.count)
-            
             }, failure: { error in
                 print(error)
                 self.tableView.refreshControl?.endRefreshing()
@@ -87,45 +87,78 @@ class MoviesController: UIViewController, UITableViewDelegate, UITableViewDataSo
         })
     }
     
-    //MARK: - Tableview
+    //MARK: - Filter
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: movieCellId, for: indexPath) as? MovieCell {
-            
-            let movie = movies[indexPath.row]
-            cell.title.text = movie.title?.uppercased()
-            cell.releaseDate.text = movie.releaseDate
-            cell.popularity.text = String(format:"%0.1f", movie.popularity!)
-            cell.genre.text = movie.genres()
-            cell.poster.image = #imageLiteral(resourceName: "placeholder")
-            
-            UIImage.image(from: movie.posterPath!, response: { (image) in
-                DispatchQueue.main.async {
-                    cell.poster.image = image
-                }
-            })
-            return cell
-        } else {
-            return UITableViewCell()
-        }
+    func setSearchBar() {
+        searchController.searchResultsUpdater = self
+        searchController.dimsBackgroundDuringPresentation = false
+        definesPresentationContext = true
+        searchController.searchBar.barStyle = UIBarStyle.blackTranslucent
+        tableView.tableHeaderView = searchController.searchBar
+        tableView.backgroundView = UIView()
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func updateSearchResults(for searchController: UISearchController) {
+        filterContentForSearchText(searchText: searchController.searchBar.text!)
+    }
+    
+    func filterContentForSearchText(searchText: String, scope: String = "All") {
+        filteredMovies = movies.filter { movie in
+            return movie.title.lowercased().contains(searchText.lowercased())
+        }
+        
+        tableView.reloadData()
+    }
+
+    // MARK: - Table view data source
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if searchController.isActive && searchController.searchBar.text != "" {
+            if filteredMovies.count == 0 {
+                return 1
+            }
+            return filteredMovies.count
+        }
         return movies.count
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         self.performSegue(withIdentifier: movieDetailSegue, sender: indexPath)
     }
     
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let movie: Movie
+        if searchController.isActive && searchController.searchBar.text != "" {
+            if filteredMovies.count == 0 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: blankCellId, for: indexPath)
+                return cell
+            }
+            if let cell = tableView.dequeueReusableCell(withIdentifier: filteredCellId, for: indexPath) as? FilteredMovieCell {
+                movie = filteredMovies[indexPath.row]
+                cell.set(movie: movie)
+                return cell
+            }
+        } else {
+            if let cell = tableView.dequeueReusableCell(withIdentifier: movieCellId, for: indexPath) as? MovieCell {
+                movie = movies[indexPath.row]
+                cell.set(movie: movie)
+                return cell
+            }
+        }
+        
+        return UITableViewCell()
+    }
+    
     //MARK: - Scrollview
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let currentOffset = scrollView.contentOffset.y
-        let maxOffset = scrollView.contentSize.height - scrollView.frame.size.height
-        if maxOffset - currentOffset <= 5.0  &&
-            maxOffset - currentOffset >= 0.0 {
-            self.upgoingMovies(page: self.nextPage)
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if searchController.isActive == false {
+            let currentOffset = scrollView.contentOffset.y
+            let maxOffset = scrollView.contentSize.height - scrollView.frame.size.height
+            if maxOffset - currentOffset <= 5.0  &&
+                maxOffset - currentOffset >= 0.0 {
+                self.upgoingMovies(page: self.nextPage)
+            }
         }
     }
     
@@ -134,8 +167,15 @@ class MoviesController: UIViewController, UITableViewDelegate, UITableViewDataSo
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == movieDetailSegue {
             let movieDetail = segue.destination as? MovieDetailController
-            let indexPath = sender as? IndexPath
-            movieDetail?.movie = movies[(indexPath?.row)!]
+            if let indexPath = sender as? IndexPath {
+                let movie: Movie
+                if searchController.isActive && searchController.searchBar.text != "" {
+                    movie = filteredMovies[indexPath.row]
+                } else {
+                    movie = movies[indexPath.row]
+                }
+                movieDetail?.movie = movie
+            }
         }
     }
 }
