@@ -8,8 +8,9 @@
 
 import UIKit
 
-class MovieDetailController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class MovieDetailController: UIViewController {
     
+    // MARK: - CONSTANTS
     let navTitle = "Movie"
     let movieDetailsCell = "MovieDetailsCell"
     let movieOverviewCell = "MovieOverviewCell"
@@ -28,20 +29,16 @@ class MovieDetailController: UIViewController, UITableViewDelegate, UITableViewD
     
     var movie: Movie!
 
-    //MARK: - Lifecycle
-    
+    //MARK: - VC LIFE CYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = navTitle
-        
         movieDetails()
     }
     
-    //MARK: - Data
-    
+    //MARK: - DATA
     func movieDetails() {
         self.movieTitle.text = movie.title.uppercased()
-        
         UIImage.image(from: movie.backdropPath!, response: { (image) in
             DispatchQueue.main.async {
                 self.movieBackdrop.image = image
@@ -49,7 +46,21 @@ class MovieDetailController: UIViewController, UITableViewDelegate, UITableViewD
         })
     }
     
-    //MARK: - Tableview
+}
+
+extension MovieDetailController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 2
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+}
+
+extension MovieDetailController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
@@ -73,14 +84,6 @@ class MovieDetailController: UIViewController, UITableViewDelegate, UITableViewD
             }
         }
         return UITableViewCell()
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
     }
     
 }

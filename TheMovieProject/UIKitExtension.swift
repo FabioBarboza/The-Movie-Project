@@ -14,11 +14,11 @@ typealias IMAGE_SUCCESS = ((_ image: UIImage) -> Void)
 extension UIImage {
     
     static func image(from path: String, response: @escaping IMAGE_SUCCESS) {
-        
+        let PATH_IMAGE = "http://image.tmdb.org/t/p/w500"
         if path == "" {
             response(#imageLiteral(resourceName: "placeholder"))
         } else {
-            Alamofire.request("http://image.tmdb.org/t/p/w500"+path, method: Alamofire.HTTPMethod.get).responseData { (data) in
+            Alamofire.request(PATH_IMAGE + path, method: Alamofire.HTTPMethod.get).responseData { (data) in
                 if data.result.error == nil {
                     let image = UIImage(data: data.result.value!)
                     response(image!)

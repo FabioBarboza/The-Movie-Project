@@ -14,6 +14,7 @@ typealias MOVIE_FAILURE = ((_ error: Error) -> Void)
 
 struct MovieAPI {
     
+    
     static func request(endpoint: MovieAPI.Endpoints, success: @escaping MOVIE_SUCCESS, failure: @escaping MOVIE_FAILURE) {
         
         Alamofire.request(endpoint.path, method: endpoint.method, parameters: endpoint.parameter)
@@ -42,7 +43,7 @@ struct MovieAPI {
         
         case upcoming(page: Int, language: String)
         
-        var movieURL: String {return AppSettings.baseURL + "movie/"}
+        var movieURL: String { return AppSettings.baseURL + "movie/" }
         
         var method: Alamofire.HTTPMethod {
             switch self {
