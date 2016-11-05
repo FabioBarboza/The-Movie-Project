@@ -29,5 +29,4 @@ class MovieCell: UITableViewCell {
             }
         })
     }
-
 }

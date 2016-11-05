@@ -78,6 +78,7 @@ class MoviesController: UITableViewController, UISearchResultsUpdating {
             }
             self.nextPage += 1
             self.tableView.refreshControl?.endRefreshing()
+            self.activityIndicator.stopAnimating()
             self.isLoading = false
             
             }, failure: { error in

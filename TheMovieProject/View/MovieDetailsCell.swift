@@ -13,7 +13,6 @@ class MovieDetailsCell: UITableViewCell {
     @IBOutlet weak var poster: UIImageView!
     @IBOutlet weak var genres: UILabel!
     @IBOutlet weak var releaseDate: UILabel!
-    @IBOutlet weak var btnWebsite: UIButton!
     @IBOutlet weak var popularity: UILabel!
     
 }

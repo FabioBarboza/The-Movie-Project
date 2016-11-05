@@ -12,7 +12,6 @@ import Alamofire
 typealias MOVIE_SUCCESS = ((_ data: [Movie]) -> Void)
 typealias MOVIE_FAILURE = ((_ error: Error) -> Void)
 
-
 struct MovieAPI {
     
     static func request(endpoint: MovieAPI.Endpoints, success: @escaping MOVIE_SUCCESS, failure: @escaping MOVIE_FAILURE) {
@@ -68,5 +67,4 @@ struct MovieAPI {
             }
         }
     }
-    
 }

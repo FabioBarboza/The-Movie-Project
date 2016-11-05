@@ -43,13 +43,13 @@ class Movie {
     
     convenience init?(json: [String: AnyObject]) {
         let backdropPath = json[MovieConstants.backdropPath] as? String
-            let genreIds = json[MovieConstants.genreIds] as? [Int]
-            let objectId = json[MovieConstants.objectId] as? Int
-            let overview = json[MovieConstants.overview] as? String
-            let popularity = json[MovieConstants.popularity] as? Float
-            let posterPath = json[MovieConstants.posterPath] as? String
-            let releaseDate = json[MovieConstants.releaseDate] as? String
-            let title = json[MovieConstants.title] as? String
+        let genreIds = json[MovieConstants.genreIds] as? [Int]
+        let objectId = json[MovieConstants.objectId] as? Int
+        let overview = json[MovieConstants.overview] as? String
+        let popularity = json[MovieConstants.popularity] as? Float
+        let posterPath = json[MovieConstants.posterPath] as? String
+        let releaseDate = json[MovieConstants.releaseDate] as? String
+        let title = json[MovieConstants.title] as? String
         
         self.init(backdropPath: backdropPath ?? "",
                   genreIds: genreIds ?? [Int](),

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="P4N-J4-mTv">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="P4N-J4-mTv">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
@@ -110,7 +110,7 @@
                                 <rect key="frame" x="0.0" y="414" width="375" height="117"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vtG-kh-wyv" id="Led-92-Bx8">
-                                    <frame key="frameInset" width="375" height="116"/>
+                                    <frame key="frameInset" width="375" height="116.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="e0N-EW-uqJ">
@@ -162,11 +162,11 @@
                                 <rect key="frame" x="0.0" y="531" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Mbq-bv-bc0" id="0t0-a2-nM0">
-                                    <frame key="frameInset" width="375" height="43"/>
+                                    <frame key="frameInset" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="No movies found" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fcd-ji-JLe">
-                                            <frame key="frameInset" minX="15" width="345" height="43"/>
+                                            <frame key="frameInset" minX="15" width="345" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -267,16 +267,6 @@
                                                     <color key="textColor" red="0.49019607840000001" green="0.4941176471" blue="0.50196078430000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bke-Iv-7Oo">
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="30" id="uwR-Im-YiH"/>
-                                                        <constraint firstAttribute="width" constant="90" id="vNh-jM-8Qp"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
-                                                    <state key="normal" title="Visit Website">
-                                                        <color key="titleColor" red="0.47843137254901957" green="0.82745098039215681" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    </state>
-                                                </button>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Star" translatesAutoresizingMaskIntoConstraints="NO" id="o62-wZ-xva">
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="15" id="CFu-Ud-awE"/>
@@ -296,10 +286,8 @@
                                                 <constraint firstItem="o62-wZ-xva" firstAttribute="leading" secondItem="x5u-FJ-b46" secondAttribute="trailing" constant="6" id="HUn-dv-08T"/>
                                                 <constraint firstItem="tZY-vW-vbC" firstAttribute="leading" secondItem="her-tP-v0I" secondAttribute="leadingMargin" constant="167" id="IEX-xY-Dvr"/>
                                                 <constraint firstItem="sVU-t0-WzH" firstAttribute="top" secondItem="918-sz-rnY" secondAttribute="bottom" constant="6" id="JVv-Id-qlw"/>
-                                                <constraint firstItem="Bke-Iv-7Oo" firstAttribute="top" secondItem="sVU-t0-WzH" secondAttribute="bottom" constant="13" id="Pps-Iq-dH5"/>
                                                 <constraint firstItem="sVU-t0-WzH" firstAttribute="leading" secondItem="0iL-Ls-nBy" secondAttribute="trailing" constant="20" id="VPX-kg-Cw8"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="0Dj-p1-DhY" secondAttribute="trailing" constant="11" id="Wez-8Y-9eh"/>
-                                                <constraint firstItem="Bke-Iv-7Oo" firstAttribute="leading" secondItem="0iL-Ls-nBy" secondAttribute="trailing" constant="20" id="ffD-A9-EfV"/>
                                                 <constraint firstItem="0iL-Ls-nBy" firstAttribute="leading" secondItem="her-tP-v0I" secondAttribute="leadingMargin" constant="11" id="ldH-Qo-OhB"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="sVU-t0-WzH" secondAttribute="trailing" constant="11" id="nRa-Yc-jNK"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="0iL-Ls-nBy" secondAttribute="bottom" constant="4" id="odL-Vh-KWj"/>
@@ -313,7 +301,6 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.070588235289999995" green="0.074509803920000006" blue="0.090196078430000007" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
-                                            <outlet property="btnWebsite" destination="Bke-Iv-7Oo" id="W9p-wK-BVu"/>
                                             <outlet property="genres" destination="0Dj-p1-DhY" id="SsW-Oe-W8w"/>
                                             <outlet property="popularity" destination="x5u-FJ-b46" id="bgP-wb-PiB"/>
                                             <outlet property="poster" destination="0iL-Ls-nBy" id="doM-Bw-zu0"/>

@@ -9,8 +9,8 @@
 import UIKit
 
 class FilteredMovieCell: UITableViewCell {
-    @IBOutlet weak var backdrop: UIImageView!
     
+    @IBOutlet weak var backdrop: UIImageView!
     @IBOutlet weak var genre: UILabel!
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var releaseDate: UILabel!
@@ -27,5 +27,4 @@ class FilteredMovieCell: UITableViewCell {
             }
         })
     }
-    
 }
