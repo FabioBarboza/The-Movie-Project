@@ -59,6 +59,6 @@ Alamofire.request("https://httpbin.org/get").responseJSON { response in
 
 ## Screens
 
-![Screen1](http://imgur.com/a/Y8mV3)
-![Screen2](http://imgur.com/a/CAUdU)
-![Screen1](http://imgur.com/a/GeGGW)
+![Screen1](http://i.imgur.com/E262FWo.png)
+![Screen2](http://i.imgur.com/SKUxzRv.jpg)
+![Screen1](http://i.imgur.com/0B3ETNV.png)
